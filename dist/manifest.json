@@ -1,0 +1,10 @@
+{
+    "name": "LoopNet Extension",
+    "description": "Browser extension for diagnostic the LoopNet project.",
+    "manifest_version": 3,
+    "version": "1.0",
+    "devtools_page": "main.html",
+    "permissions": [
+        "system.memory", "storage"
+    ]
+}

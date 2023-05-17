@@ -1,0 +1,20 @@
+{
+    "name": "loopnet-chrome-extension",
+    "version": "1.0.0",
+    "description": "Chrome extension for LoopNet project",
+    "engines": {
+        "node": "^14.15.0 || ^16.10.0 || >=18.0.0"
+    },
+    "private": true,
+    "scripts": {
+        "watch": "webpack --watch",
+        "build": "webpack --mode production",
+        "clean": "rd /s /q node_modules"
+    },
+    "author": "CoStar Group",
+    "license": "UNLICENSED",
+    "devDependencies": {
+        "webpack": "^5.82.1",
+        "webpack-cli": "^5.1.1"
+    }
+}
