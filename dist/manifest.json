@@ -1,10 +1,16 @@
 {
     "name": "LoopNet Extension",
-    "description": "Browser extension for diagnostic the LoopNet project.",
+    "description": "Browser extension developer for diagnostic and testing of the LoopNet project.",
     "manifest_version": 3,
     "version": "1.0",
     "devtools_page": "main.html",
     "permissions": [
-        "system.memory", "storage"
-    ]
+        "storage"
+    ],
+    "icons": {
+        "16": "icons/cs_16.png",
+        "24": "icons/cs_24.png",
+        "32": "icons/cs_32.png",
+        "64": "icons/cs_64.png"
+      }
 }

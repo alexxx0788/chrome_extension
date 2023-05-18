@@ -1,22 +1,25 @@
-const api = "https://jsonplaceholder.typicode.com/todos/1";
-
-let response;
-let storageData;
-let count = 0;
-let countStr;
-
-
-chrome.devtools.panels.create("LoopNet Panel", "icon.ico", "devtools_panel.html", panel => {
-    // code invoked on panel creation
+// Creating a DevTools panel
+chrome.devtools.panels.create("LoopNet", "../icons/cs_32.png", "panels/loopnet_panel.html", panel => {
     panel.onShown.addListener( (extPanelWindow) => {
-        response = extPanelWindow.document.querySelector('#tab1Frame').contentDocument.querySelector('#response');
-        storageData = extPanelWindow.document.querySelector('#tab1Frame').contentDocument.querySelector('#storageData');
-        countStr = extPanelWindow.document.querySelector('#tab1Frame').contentDocument.querySelector('#count');
+        RenderTraceTab(extPanelWindow);
+        RenderHeadersTab(extPanelWindow);
     });
 });
 
-setInterval(async() => {
+function RenderTraceTab(extPanelWindow) {
+    let dateNowData = extPanelWindow.document.querySelector('#traceFrame').contentDocument.querySelector('#dateNowData');
+    const date = new Date();
+    const dateString = date.toISOString()
+    dateNowData.innerHTML = dateString;
+}
+function RenderHeadersTab(extPanelWindow) {
+    let dateNowData = extPanelWindow.document.querySelector('#headersFrame').contentDocument.querySelector('#dateTimeNowData');
+    const date = new Date();
+    const dateString = date.toLocaleDateString();
+    dateNowData.innerHTML = dateString;
+}
 
+/*setInterval(async() => {
     if (count > 3) {
         chrome.storage.local.set({ key: Date.now() });
     }
@@ -34,4 +37,5 @@ setInterval(async() => {
       } catch (error) {
         response.innerHTML = "We have no data for the country you have requested.";
       }
-}, 3000);
+
+}, 3000);*/
