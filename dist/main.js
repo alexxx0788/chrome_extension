@@ -1,5 +1,5 @@
 // Creating a DevTools panel
-chrome.devtools.panels.create("LoopNet", "../icons/cs_32.png", "panels/loopnet_panel.html", panel => {
+chrome.devtools.panels.create("LoopNet", "../icons/cs_32.png", "panel/loopnet_panel.html", panel => {
     panel.onShown.addListener( (extPanelWindow) => {
         RenderTraceTab(extPanelWindow);
         RenderHeadersTab(extPanelWindow);
