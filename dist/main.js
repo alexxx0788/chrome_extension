@@ -1,5 +1,5 @@
 // Creating a DevTools panel
-chrome.devtools.panels.create("LoopNet", "../icons/cs_32.png", "panel/loopnet_panel.html", panel => {
+chrome.devtools.panels.create("LoopNet", "../icons/cs_32.png", "panel/devtools.html", panel => {
     panel.onShown.addListener( (extPanelWindow) => {
         RenderTraceTab(extPanelWindow);
         RenderHeadersTab(extPanelWindow);
@@ -7,13 +7,13 @@ chrome.devtools.panels.create("LoopNet", "../icons/cs_32.png", "panel/loopnet_pa
 });
 
 function RenderTraceTab(extPanelWindow) {
-    let dateNowData = extPanelWindow.document.querySelector('#traceFrame').contentDocument.querySelector('#dateNowData');
+    let dateNowData = extPanelWindow.document.querySelector('#webTracerFrame').contentDocument.querySelector('#dateNowData');
     const date = new Date();
     const dateString = date.toISOString()
     dateNowData.innerHTML = dateString;
 }
 function RenderHeadersTab(extPanelWindow) {
-    let dateNowData = extPanelWindow.document.querySelector('#headersFrame').contentDocument.querySelector('#dateTimeNowData');
+    let dateNowData = extPanelWindow.document.querySelector('#modRequestFrame').contentDocument.querySelector('#dateTimeNowData');
     const date = new Date();
     const dateString = date.toLocaleDateString();
     dateNowData.innerHTML = dateString;

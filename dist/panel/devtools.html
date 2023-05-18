@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<body>
+  <link rel="stylesheet" href="static/css/panel.css">
+  <div class="container">
+    <div class="tabset">
+      <input type="radio" name="tabset" id="webTracerTab" aria-controls="webTracer" checked>
+      <label for="webTracerTab">Web Tracer</label>
+      <input type="radio" name="tabset" id="modRequestTab" aria-controls="modRequest">
+      <label for="modRequestTab">Headers</label>
+      <input type="radio" name="tabset" id="infoTab" aria-controls="info">
+      <label for="infoTab">Info</label>
+
+      <div class="tab-panels">
+        <section id="webTracer" class="tab-panel">
+          <iframe id="webTracerFrame" class="frame" src="tabs/wetracer/frame.html"></iframe>
+        </section>
+        <section id="modRequest" class="tab-panel">
+          <iframe id="modRequestFrame" class="frame" src="tabs/mod_request/frame.html"></iframe>
+        </section>
+        <section id="info" class="tab-panel">
+          <iframe id="infoFrame" class="frame" src="tabs/info/frame.html"></iframe>
+        </section>
+      </div>
+      
+    </div>
+    <div class="logo">
+      <img src="static/images/logo-loopnet-red.svg">
+    </div>
+  </div>
+</body>
+</html>
