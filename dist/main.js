@@ -1,22 +1,28 @@
 // Creating a DevTools panel
 chrome.devtools.panels.create("LoopNet", "../icons/cs_32.png", "panel/devtools.html", panel => {
     panel.onShown.addListener( (extPanelWindow) => {
-        RenderTraceTab(extPanelWindow);
         RenderHeadersTab(extPanelWindow);
     });
 });
 
-function RenderTraceTab(extPanelWindow) {
-    let dateNowData = extPanelWindow.document.querySelector('#webTracerFrame').contentDocument.querySelector('#dateNowData');
-    const date = new Date();
-    const dateString = date.toISOString()
-    dateNowData.innerHTML = dateString;
-}
 function RenderHeadersTab(extPanelWindow) {
-    let dateNowData = extPanelWindow.document.querySelector('#modRequestFrame').contentDocument.querySelector('#dateTimeNowData');
-    const date = new Date();
-    const dateString = date.toLocaleDateString();
-    dateNowData.innerHTML = dateString;
+    let p1HeadersObj;
+    chrome.storage.local.get(["key"]).then((result) => {
+        p1HeadersObj = JSON.parse(result.key).p1Headers;
+        console.log(p1HeadersObj);
+    });
+
+    let headersCont = extPanelWindow.document.querySelector('#modRequestFrame').contentDocument.querySelector('#headersCont');
+    let html = '';
+    for(let i = 0; i < p1HeadersObj; i++) {
+        html += p1HeadersObj[i].header;
+        //RenderHeaderFields(p1HeadersObj[i].header, p1HeadersObj[i].value);
+    }
+    headersCont.innerHTML = html;
+}
+
+function RenderHeaderFields(headerName, headerValue) {
+    return '<input class="headerName" value="'+ headerName +'" /> : <input class="headerValue" value="'+ headerValue +'" /><br/>';
 }
 
 /*setInterval(async() => {
