@@ -4,32 +4,23 @@ const featuresServiceHeaderValue = '170cf7e5-667a-49a4-a630-227d6e85daa0';
 // Creating a DevTools panel
 chrome.devtools.panels.create("LoopNet", "../icons/cs_32.png", "panel/devtools.html", panel => {
     panel.onShown.addListener( (extPanelWindow) => {
-        showHeadersList(extPanelWindow);
-        //showFeatureTogglesList(extPanelWindow);
+       showHeadersList(extPanelWindow);
+       showFeatureTogglesList(extPanelWindow);
+
+
+       let sayHello = extPanelWindow.document.querySelector('#modRequestFrame').contentDocument.querySelector('#sayHello');
+        sayHello.addEventListener("input", () => {
+            target = window.event.target.value;
+            if (target.length > 3)
+            {
+                showFeatureTogglesList(extPanelWindow, target);
+            }
+        });
+
     });
 });
 
 function showHeadersList(extPanelWindow) {
-
-   /* let o = [
-        {
-            name : 'header1',
-            value : 'value1'
-        },
-        {
-            name : 'header2',
-            value : 'value2'
-        },
-        {
-            name : 'header3',
-            value : 'value3'
-        }
-    ];
-
-    chrome.storage.local.set({ p1Headers: o }).then(() => {
-        console.log("Value is set to " + value);
-      });*/
-
     chrome.storage.local.get(["p1Headers"]).then((result) => {
         let html = '';
         let headersContainer = extPanelWindow.document.querySelector('#modRequestFrame').contentDocument.querySelector('#headers-container');
@@ -76,18 +67,21 @@ async function fetchFeaturesAsync(extPanelWindow) {
     return undefined;
 }
 
-async function showFeatureTogglesList(extPanelWindow) {
+async function showFeatureTogglesList(extPanelWindow, searchWord) {
     let html = '';
     let featuresList = await fetchFeaturesAsync(extPanelWindow);
     if (featuresList !== undefined) {
         for(let i=0;i<featuresList.length;i++) {
-            html += '<div class="feature-toggle">X-Feature-'+ featuresList[i].NameId+'</div>'
+            let featureName = featuresList[i].NameId;
+            if (searchWord === '' || searchWord === undefined || featureName.toLowerCase().includes(searchWord.toLowerCase()))
+            {
+                html += '<div class="feature-toggle">X-Feature-'+ featureName +'</div>'
+            }
         }
         let featureTogglesCont = extPanelWindow.document.querySelector('#modRequestFrame').contentDocument.querySelector('#featureToggles-container');
         featureTogglesCont.innerHTML = html;
     }
 }
-
 
 function showError(extPanelWindow, errorText) {
     let errorBlock = extPanelWindow.document.querySelector('#error-block');

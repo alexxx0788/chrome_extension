@@ -2,17 +2,22 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <link rel="stylesheet" href="../../static/css/panel.css">
+    <link rel="stylesheet" href="../../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/css/styles.css">
   </head>
   <body>
-    <div id="modRequest-container">
-      <div class="inline-block w50" id="headers-container"></div>
-      <div class="inline-block">
-        <div class="block title">
-          List of feature toggles
+    <div class="container">
+      <div class="row m-3">
+        <div class="col-md-6"><h3>Request Headers</h3></div>
+        <div class="col-md-6"><h3>List of Feature Toggles</h3></div>
+      </div>
+      <div class="row">
+        <div class="col-md-6" id="headers-container">
+          <img class="loading-bar" src="../../static/images/loading.gif" />
         </div>
-        <div class="block" id="featureToggles-container">
-          <img class="loading-bar center" src="../../static/images/loading.gif"
+        <input type="text" id="sayHello"/>
+        <div class="col-md-6" id="featureToggles-container">
+          <img class="loading-bar m-3" src="../../static/images/loading.gif" />
         </div>
       </div>
     </div>

@@ -7,6 +7,20 @@
     "permissions": [
         "storage"
     ],
+    "content_scripts": [{
+        "matches": [
+            "http://*.loopnet.*/*",
+            "https://*.loopnet.*/*"
+        ],
+        "run_at": "document_idle",
+        "all_frames": true,
+        "js": [
+          "content_script.js"
+        ]
+    }],
+    "background": {
+        "service_worker": "background.js"
+    },      
     "icons": {
         "16": "icons/cs_16.png",
         "24": "icons/cs_24.png",
