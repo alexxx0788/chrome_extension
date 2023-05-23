@@ -80,7 +80,7 @@ body {
 }
 
 .container {
-  display: flex;
+  display: block;
 }
 
 .tabset {
@@ -98,4 +98,44 @@ body {
   width: 100%;
   overflow: hidden; 
   height: 50em; 
+}
+.error-container {
+  color: red;
+  text-align: center;
+  margin: 0 30px;
+}
+
+.loading-bar {
+  width: 10%;
+}
+.inline-block {
+  display: inline-block;
+}
+.block {
+  display: block;
+}
+.w50 {
+  width: 50%;
+}
+.center {
+  margin-left: 50%;
+  margin-top: 50%;
+}
+
+.feature-toggle {
+  display: block;
+  color: rgb(65, 122, 255);
+  padding: 10px;
+  transition: background-color 0.3s; /* Add transition for a smooth effect */
+}
+
+.feature-toggle:hover {
+  color: red;
+}
+
+.title {
+  font-size: 20px;
+  margin: 20px 0;
+  text-align: center;
+  font-weight: bold;
 }

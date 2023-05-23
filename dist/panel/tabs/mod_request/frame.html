@@ -5,9 +5,16 @@
     <link rel="stylesheet" href="../../static/css/panel.css">
   </head>
   <body>
-    <button id="addNewHeaderBtn">Add</button>
-    <button id="clearHeadersBtn">Clear</button>
-    <button id="saveHeadersBtn">Save</button>
-    <div id="headersCont"></div>
+    <div id="modRequest-container">
+      <div class="inline-block w50" id="headers-container"></div>
+      <div class="inline-block">
+        <div class="block title">
+          List of feature toggles
+        </div>
+        <div class="block" id="featureToggles-container">
+          <img class="loading-bar center" src="../../static/images/loading.gif"
+        </div>
+      </div>
+    </div>
   </body>
 </html>

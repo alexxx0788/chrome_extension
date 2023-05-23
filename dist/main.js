@@ -1,64 +1,96 @@
 const featuresServiceUrl = 'https://ocobondarenko.dev.loopnet.com/services/features/pull'; // features url
 const featuresServiceHeaderValue = '170cf7e5-667a-49a4-a630-227d6e85daa0';
 
-
 // Creating a DevTools panel
 chrome.devtools.panels.create("LoopNet", "../icons/cs_32.png", "panel/devtools.html", panel => {
     panel.onShown.addListener( (extPanelWindow) => {
-       // RenderHeadersTab(extPanelWindow);
-          renderFeaturesList(extPanelWindow);
+        showHeadersList(extPanelWindow);
+        //showFeatureTogglesList(extPanelWindow);
     });
 });
 
-async function fetchFeaturesAsync(extPanelWindow) {
-    const options = {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-FMS-Token' : featuresServiceHeaderValue 
-      }
-    };
-    
-    try {
-      const response = await fetch(featuresServiceUrl, options);
-      const data = await response.json();
-      let featuresObj = JSON.parse(data.FeaturesJson);
-      return featuresObj.Apps[0].Features;
-    } catch (error) {
-        let errorBlock = extPanelWindow.document.querySelector('#error-block');
-        //errorBlock.innerHTML = JSON.stringify(error);
-    }
+function showHeadersList(extPanelWindow) {
+
+   /* let o = [
+        {
+            name : 'header1',
+            value : 'value1'
+        },
+        {
+            name : 'header2',
+            value : 'value2'
+        },
+        {
+            name : 'header3',
+            value : 'value3'
+        }
+    ];
+
+    chrome.storage.local.set({ p1Headers: o }).then(() => {
+        console.log("Value is set to " + value);
+      });*/
+
+    chrome.storage.local.get(["p1Headers"]).then((result) => {
+        let html = '';
+        let headersContainer = extPanelWindow.document.querySelector('#modRequestFrame').contentDocument.querySelector('#headers-container');
+        let headers = result.p1Headers;
+        for (let i=0; i < headers.length; i++) {
+            html += renderHeaderField(headers[i].name, headers[i].value)
+        }
+        headersContainer.innerHTML = html;
+    });
 }
 
-async function renderFeaturesList(extPanelWindow) {
+function renderHeaderField(headerName, headerValue) {
+    return '<input class="headerName" value="'+ headerName +'" /> : <input class="headerValue" value="'+ headerValue +'" /><br/>';
+}
+
+async function fetchFeaturesAsync(extPanelWindow) {
+    try {
+        const options = {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-FMS-Token' : featuresServiceHeaderValue 
+            }
+          };
+        const response = await fetch(featuresServiceUrl, options);
+        const responseData = await response.json();
+        if (responseData !== undefined) {
+            let featuresObj = JSON.parse(responseData.FeaturesJson);
+            if (featuresObj !== undefined && 
+                featuresObj.Apps !== undefined && 
+                featuresObj.Apps.length > 0 && 
+                featuresObj.Apps[0].Features !== undefined) {
+                return featuresObj.Apps[0].Features;
+            } else {
+                showError(extPanelWindow, 'An error occurred feature toggles the data object.');
+            }
+        } else {
+            showError(extPanelWindow, 'An error occurred on parsing feature toggles data.');
+        }
+        
+    } catch (error) {
+        showError(extPanelWindow, 'An error occurred on feature toggles pull.');
+    }
+    return undefined;
+}
+
+async function showFeatureTogglesList(extPanelWindow) {
     let html = '';
     let featuresList = await fetchFeaturesAsync(extPanelWindow);
-    for(let i=0;i<featuresList.length;i++) {
-        html += '<li>'+ featuresList[i].NameId+'</li>'
+    if (featuresList !== undefined) {
+        for(let i=0;i<featuresList.length;i++) {
+            html += '<div class="feature-toggle">X-Feature-'+ featuresList[i].NameId+'</div>'
+        }
+        let featureTogglesCont = extPanelWindow.document.querySelector('#modRequestFrame').contentDocument.querySelector('#featureToggles-container');
+        featureTogglesCont.innerHTML = html;
     }
-    let headersCont = extPanelWindow.document.querySelector('#modRequestFrame').contentDocument.querySelector('#headersCont');
-    headersCont.innerHTML = html;
 }
 
 
-
-function RenderHeadersTab(extPanelWindow) {
-    let p1HeadersObj;
-    chrome.storage.local.get(["key"]).then((result) => {
-        p1HeadersObj = JSON.parse(result.key).p1Headers;
-        console.log(p1HeadersObj);
-    });
-
-    let headersCont = extPanelWindow.document.querySelector('#modRequestFrame').contentDocument.querySelector('#headersCont');
-    let html = '';
-    for(let i = 0; i < p1HeadersObj; i++) {
-        html += p1HeadersObj[i].header;
-        //RenderHeaderFields(p1HeadersObj[i].header, p1HeadersObj[i].value);
-    }
-    headersCont.innerHTML = html;
-}
-
-function RenderHeaderFields(headerName, headerValue) {
-    return '<input class="headerName" value="'+ headerName +'" /> : <input class="headerValue" value="'+ headerValue +'" /><br/>';
+function showError(extPanelWindow, errorText) {
+    let errorBlock = extPanelWindow.document.querySelector('#error-block');
+    errorBlock.innerHTML = 'Error. ' + errorText;
 }
 
