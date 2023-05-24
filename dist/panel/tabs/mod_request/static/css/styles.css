@@ -5,12 +5,6 @@
     font-weight: bold;
 }
 
-.error-container {
-    color: red;
-    text-align: center;
-    margin: 0 30px;
-}
-
 .loading-bar {
     width: 10%;
 }
@@ -34,4 +28,3 @@
 .feature-toggle:hover {
     color: red;
 }
-

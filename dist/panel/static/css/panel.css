@@ -99,3 +99,9 @@ body {
   overflow: hidden; 
   height: 50em; 
 }
+
+.error-container {
+  color: red;
+  text-align: center;
+  margin: 0 30px;
+}
