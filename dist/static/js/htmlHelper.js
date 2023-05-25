@@ -13,10 +13,13 @@ export function showLoader(extPanelWindow, containerId) {
 
 export function renderHeaderRow(headerName, headerValue, headerActive) {
     let checked = headerActive === true ? 'checked' : '';
-    return '<input class="header-field-change header-status" type="checkbox" '+ checked +' />'+
-    '<input class="header-field-change header-name" value="'+ headerName +'" /> : '+
-    '<input class="header-field-change header-value" value="'+ headerValue +'" />' +
-    '<input class="header-delete" headerName="'+ headerName +'" type="button" value="X" /><br/>';
+
+    return '<div class="row">'+
+    '<div class="col-md0"><input class="header-field-change header-status" type="checkbox" '+ checked +' /></div>'+
+    '<div class="col-md-3"><input class="headerField header-field-change header-name" value="'+ headerName +'" /></div>'+
+    '<div class="col-md-3"><input class="headerField header-field-change header-value" value="'+ headerValue +'" /></div>'+
+    '<div class="col-md-1"><input class="header-delete" headerName="'+ headerName +'" type="button" value="X" /></div>' +
+    '</div>';
 }
 
 export function renderHtml(extPanelWindow, elementId, html) {

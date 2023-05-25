@@ -1,10 +1,9 @@
-import Helper from "./static/js/Helper.js";
+import Helper from "./static/js/helper.js";
 import HtmlHelper from "./static/js/htmlHelper.js";
 import FeatureToggleHelper from "./static/js/featureToggleHelper.js";
-import htmlHelper from "./static/js/htmlHelper.js";
 
 const PanelName = 'LoopNet';
-const PanelPath = 'panel/devtools.html';
+const PanelPath = 'devtools.html';
 const HeadersStorageKey = 'RequestHeaders';
 const HeadersContainerId = '#headersContainer';
 const SelectedHeadersContainerId = '#selectedHeaders';
@@ -51,7 +50,7 @@ function autoCompleteFeatureToggles() {
     const input = PanelWindow.document.querySelector(HeaderNameInpId);
     const inputValue = PanelWindow.document.querySelector(HeaderNameInpId).value.toLowerCase();
     const filteredSuggestions = featureToggles.filter(ft =>
-        ft.toLowerCase().startsWith(inputValue)
+        ft.toLowerCase().includes(inputValue)
     );
 
     // Clear previous suggestions
