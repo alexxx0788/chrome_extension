@@ -7,17 +7,23 @@
   <div class="container">
     <div class="container error-container" id="error-block"></div>
     <div class="tabset">
-      <input type="radio" name="tabset" id="modRequestTab" aria-controls="modRequest" checked>
+      <input type="radio" name="tabset" id="modRequestTab" aria-controls="modRequestSection" checked>
       <label for="modRequestTab">Headers</label>
-      <input type="radio" name="tabset" id="webTracerTab" aria-controls="webTracer">
+      <input type="radio" name="tabset" id="webTracerTab" aria-controls="webTracerSection">
       <label for="webTracerTab">Web Tracer</label>
-      <input type="radio" name="tabset" id="infoTab" aria-controls="info">
-      <label for="infoTab">Info</label>
       <div class="tab-panels">
-        <section id="modRequest" class="tab-panel">
-          <iframe nonce="random-nonce-value" id="modRequestFrame" class="frame" src="tabs/mod_request/frame.html"></iframe>
+        <section id="modRequestSection" class="tab-panel">
+          <div id="modRequest-container" class="container">
+            <div class="row m-3">
+              <div class="col-md-6"><h3>Request Headers ( <span id="selectedHeaders">0</span> / <span id="totalHeaders">0</span> )</h3></div>
+            </div>
+            <div class="row">
+              <div class="col-md-6" id="headers-container">
+              </div>
+            </div>
+          </div>
         </section>
-        <section id="webTracer" class="tab-panel">
+        <section id="webTracerSection" class="tab-panel">
           <iframe id="webTracerFrame" class="frame" src="tabs/webtracer/frame.html"></iframe>
         </section>
         <section id="info" class="tab-panel">
