@@ -19,7 +19,7 @@ export async function getFeatureTogglesAsync(extPanelWindow) {
 }
 
 async function fetchFeaturesTogglesAsync(extPanelWindow) {
-    try {
+    /*try {
         let features = [];
         const options = {
             method: 'GET',
@@ -52,7 +52,8 @@ async function fetchFeaturesTogglesAsync(extPanelWindow) {
     } catch (error) {
         htmlHelper.showError(extPanelWindow, 'An error occurred on feature toggles pull.');
     }
-    return undefined;
+    return undefined;*/
+    return ['aaa', 'bbb', 'ccc', 'ddd', 'eee'];
 }
 
 export default {

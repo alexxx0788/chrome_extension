@@ -141,3 +141,9 @@ body {
 .headerField {
   width: 300px;
 }
+
+.suggestion {
+  cursor: pointer;
+  padding: 5px;
+  background-color: #f2f2f2;
+}
