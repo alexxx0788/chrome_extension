@@ -5,8 +5,12 @@
     "version": "1.0",
     "devtools_page": "main.html",
     "permissions": [
-        "storage"
+        "storage",
+        "webRequest"
     ],
+    "background": {
+        "service_worker": ["background.js"]
+      },
     "icons": {
         "16": "static/icons/cs_16.png",
         "24": "static/icons/cs_24.png",
