@@ -5,11 +5,7 @@
     "version": "1.0",
     "devtools_page": "main.html",
     "host_permissions": ["https://www.loopnet.com/"],
-    "permissions": [
-        "storage",
-        "webRequest",
-        "declarativeNetRequest"
-    ],
+    "permissions": ["storage", "declarativeNetRequest"],
     "background": {
       "service_worker": "service-worker.js"
     },
@@ -20,3 +16,4 @@
         "64": "static/icons/cs_64.png"
       }
 }
+

@@ -15,6 +15,7 @@ const HeaderCheckBoxId = '#headerNameChBx';
 const DeleteAllBtnId = '#deleteAllBtn';
 let PanelWindow;
 let featureToggles = [];
+let id = 6;
 
 // Creating a DevTools panel
 chrome.devtools.panels.create(PanelName, "../icons/cs_32.png", PanelPath, panel => {
@@ -133,8 +134,25 @@ async function addHeaderFromInputAsync() {
         HtmlHelper.showError(PanelWindow, 'Header Name is empty or already added.')
     }
 
-    PanelWindow.document.querySelector(HeaderNameInpId).value = '';
-    PanelWindow.document.querySelector(HeaderValueInpId).value = '';
+    try {
+        let rule = {
+            "id": id++,
+            "action": {
+              "type": "modifyHeaders",
+              "requestHeaders": [{"operation": "set", "header": inputheaderName, "value": inputheaderValue}]
+            },
+            "condition": {
+              "resourceTypes": ["main_frame"],
+              "urlFilter": '*'
+            }
+        };
+        chrome.declarativeNetRequest.updateDynamicRules({addRules:[rule]}).then(() => {HtmlHelper.showError(PanelWindow,'Header was updated')});
+        PanelWindow.document.querySelector(HeaderNameInpId).value = '';
+        PanelWindow.document.querySelector(HeaderValueInpId).value = '';
+    
+    } catch {
+        HtmlHelper.showError(PanelWindow,'Error');
+    }
 }
 
 async function setAllHeadersActiveAsync() {
@@ -177,7 +195,3 @@ async function showFeatureTogglesList(extPanelWindow, searchWord) {
         });*/
     });
 }
-
-
-
-
